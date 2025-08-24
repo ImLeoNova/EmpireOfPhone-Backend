@@ -2,7 +2,10 @@
 
 namespace EP.API.Middlewares;
 
-public class ExceptionHandlingMiddleware(RequestDelegate next)
+public class ExceptionHandlingMiddleware(
+    RequestDelegate next, 
+    ILogger<ExceptionHandlingMiddleware> logger
+    )
 {
     public async Task InvokeAsync(HttpContext context)
     {
@@ -25,10 +28,11 @@ public class ExceptionHandlingMiddleware(RequestDelegate next)
             await context.Response.WriteAsJsonAsync(new { error = ex.Message }); 
         }
         
-        catch (Exception)
+        catch (Exception exception)
         {
             context.Response.StatusCode = 500; // Internal Server Err
             context.Response.ContentType = "application/json";
+            logger.LogInformation(exception.Message);
             await context.Response.WriteAsJsonAsync(new { error = $"Something went wrong at server " });
         }
 

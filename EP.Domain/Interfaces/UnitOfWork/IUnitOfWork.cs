@@ -4,7 +4,7 @@ namespace EP.Domain.Interfaces.UnitOfWork;
 
 public interface IUnitOfWork
 {
-    IUserRepository Users { get; set; }
+    IUserRepository Users { get;}
 
     Task<int> CompleteAsync();
 }

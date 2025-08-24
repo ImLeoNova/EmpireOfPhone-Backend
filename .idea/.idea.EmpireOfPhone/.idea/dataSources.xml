@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="extraDB" uuid="fbe7f68e-ab5f-46e3-9726-40ba014058aa">
+    <data-source source="LOCAL" name="extraDB" uuid="e9efb176-d1b4-492a-855b-2db0bfe2ff2a">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:E:\Youtube\EmpireOfPhone\EP.API\Database\extraDB.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:E:\Youtube\EmpireOfPhone-Backend\EP.API\Database\extraDB.db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>

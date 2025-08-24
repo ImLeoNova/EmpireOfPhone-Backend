@@ -10,6 +10,9 @@ public class UserMapper : Profile
     public UserMapper()
     {
         CreateMap<User, UserForRead>();
+        
         CreateMap<UserForCreate, User>();
+        
+        CreateMap<UserForUpdateDto, User>();
     }
 }

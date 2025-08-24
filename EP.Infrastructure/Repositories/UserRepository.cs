@@ -9,16 +9,23 @@ namespace EP.Infrastructure.Repositories;
 
 public class UserRepository(
     ExtraDbContext context,
-    UserManager<User> userManager) : IUserRepository
+    UserManager<User> userManager
+    ) : IUserRepository
 {
-    public async Task<IEnumerable<User>> GetAllUsersAsync(PaginationForGetDto paginationDto)
+    public async Task<(IEnumerable<User>, int totalCounts )> GetAllUsersAsync(PaginationForGetDto paginationDto)
     {
+
+        var totalCounts = context.Users.Count(); 
+        
         IQueryable<User> users = context.Users.OrderBy(
             c=>c.Id
             )
             .Skip(paginationDto.PageSize * (paginationDto.PageId - 1))
             .Take(paginationDto.PageSize);
-        return await users.ToListAsync();
+        return (
+            await users.ToListAsync(), 
+            totalCounts
+            );
     }
     
     public async Task<User?> GetUserByIdAsync(string id)
@@ -26,9 +33,10 @@ public class UserRepository(
         return await userManager.FindByIdAsync(id);
     }
 
-    public async Task AddUserAsync(User user)
+    public async Task AddUserAsync(User user, string password)
     {
-        await userManager.CreateAsync(user);
+        await userManager.CreateAsync(user, password:password);
+        await context.SaveChangesAsync();
     }
 
     public async Task<User?> GetUserByUsernameAsync(string username)
@@ -41,14 +49,15 @@ public class UserRepository(
         return await userManager.FindByEmailAsync(email);
     }
 
-    public Task UpdateUserAsync(User user)
+    public async Task UpdateUserAsync(User user)
     {
-        context.Users.Update(user);
-        return Task.CompletedTask;
+        await userManager.UpdateAsync(user);
+        await context.SaveChangesAsync();
     }
 
-    public async Task<IdentityResult> DeleteUserAsync(User user)
+    public async Task DeleteUserAsync(User user)
     {
-        return await userManager.DeleteAsync(user);
+        await userManager.DeleteAsync(user);
+        await context.SaveChangesAsync();
     }
 }
