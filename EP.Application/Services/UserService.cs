@@ -6,14 +6,15 @@ using EP.Domain.Interfaces.Services;
 using EP.Shared.DTOs.PaginationDTOs;
 using EP.Shared.DTOs.ResponseDTOs;
 using EP.Shared.DTOs.UserDTOs;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 
 namespace EP.Application.Services;
 
 public class UserService(
     IUserRepository userRepository,
-    IMapper mapper
-    ) : IUserService
+    IMapper mapper,
+    UserManager<User> userManager) : IUserService
 {
 
     #region GetAllUsersAsync
@@ -50,11 +51,21 @@ public class UserService(
         
         return response;
     }
-    
+
+    public async Task<UserForRead> GetUserByIdAsync(string id)
+    {
+        var user = await userRepository.GetUserByIdAsync(id);
+
+        if (user == null)
+        {
+            throw new NotfoundException($"User with id {id} Notfound !");
+        }
+        var mappedUser = mapper.Map<UserForRead>(user);
+        return mappedUser;
+    }
+
     #endregion
     
-    
-
     #region CreateUserAsync
 
     /// <summary>
@@ -68,6 +79,7 @@ public class UserService(
         if (await userRepository.GetUserByUsernameAsync(user.UserName) != null) throw new InvalidOperationException( $"User With Name {userEntity.UserName} Exists!");
         if (await userRepository.GetUserByEmailAsync(user.Email) != null) throw new InvalidOperationException( $"User With Email {user.Email} Exists!"); 
         await userRepository.AddUserAsync(userEntity , user.Password);
+        // await userManager.AddToRoleAsync(userEntity, "Member");
     }    
 
     #endregion

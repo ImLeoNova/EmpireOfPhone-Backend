@@ -1,18 +1,24 @@
 ﻿
 using EP.Domain.Interfaces.Services;
+using EP.Infrastructure.Authentication;
 using EP.Shared.DTOs.UserDTOs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace EP.API.Controllers.GeneralControllers;
 
-public class AuthController( IAuthService authService ) : BaseController
+public class AuthController( IAuthService authService ,  
+    IOptions<JwtSettings> settings) : BaseController
 {
+
+    private readonly JwtSettings _jwtSettings = settings.Value;
+    
     private void SetTokenCookie(string token)
     {
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Expires = DateTime.UtcNow.AddDays(7), 
+            Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.EXPRIYMINUTES), 
             Secure = true, 
             SameSite = SameSiteMode.Lax
         };

@@ -8,16 +8,17 @@ public static class MiddlewaresExtension
     {
         app.UseCors("AllowAnyOrigins");
 
-        app.UseHttpsRedirection();
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-        app.UseSwaggerMiddlewares();
+        app.UseHttpsRedirection();
+        
+        if (app.Environment.IsDevelopment()) app.UseSwaggerMiddlewares();
 
         app.UseAuthentication();
-        
+
         app.UseAuthorization();
 
         app.MapControllers();
-
-        app.UseMiddleware<ExceptionHandlingMiddleware>();
     }
+
 }

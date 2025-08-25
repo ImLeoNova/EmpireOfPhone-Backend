@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EP.Infrastructure.Migrations
 {
-    [DbContext(typeof(ExtraDbContext))]
-    [Migration("20250818162332_Initial")]
+    [DbContext(typeof(AppIdentityContext))]
+    [Migration("20250824181838_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

@@ -28,10 +28,6 @@ public record UserForCreate
     [Compare("Password", ErrorMessage = "Password Do not Match")]
     public string PasswordConfirm { get; set; } = string.Empty;
     
-    [Required]
-    [Display(Name = "Role")]
-    public string Role { get; set; } = string.Empty;
-    
     [Display(Name = "First Name")]
     public string FirstName { get; set; } = string.Empty;
     

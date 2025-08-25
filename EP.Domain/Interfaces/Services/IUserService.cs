@@ -8,6 +8,7 @@ namespace EP.Domain.Interfaces.Services;
 public interface IUserService
 {
     public Task<ResponseForShowAllDto<UserForRead>> GetAllUsers(PaginationForGetDto paginationDto);
+    public Task<UserForRead> GetUserByIdAsync(string id);
     public Task CreateUserAsync(UserForCreate user);
     public Task DeleteUserAsync(string userId);
     public Task ReplaceUserAsync(string userId, UserForUpdateDto user);

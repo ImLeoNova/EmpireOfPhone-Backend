@@ -22,7 +22,7 @@ public static class DependencyInjection
         
         #region DbContexts
         
-        services.AddDbContext<ExtraDbContext>(options =>
+        services.AddDbContext<AppIdentityContext>(options =>
         {
             options.UseSqlite(config.GetConnectionString("ExtraDataConnection"));
         });
@@ -39,7 +39,7 @@ public static class DependencyInjection
                 options.Password.RequireUppercase = false;
             })
             .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<ExtraDbContext>();
+            .AddEntityFrameworkStores<AppIdentityContext>();
         #endregion
         
         #region Repositories

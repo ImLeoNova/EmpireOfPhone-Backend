@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EP.Infrastructure.Migrations
 {
-    [DbContext(typeof(ExtraDbContext))]
-    partial class ExtraDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AppIdentityContext))]
+    partial class AppIdentityContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

@@ -4,7 +4,7 @@ using EP.Infrastructure.Data;
 
 namespace EP.Infrastructure.UnitOfWork;
 
-public class UnitOfWork(ExtraDbContext context, IUserRepository userRepository) : IUnitOfWork, IAsyncDisposable
+public class UnitOfWork(AppIdentityContext context, IUserRepository userRepository) : IUnitOfWork, IAsyncDisposable
 {
     public IUserRepository Users { get; } = userRepository;
 

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,6 +14,7 @@ public static class JwtConfigurationExtension
             options.TokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateAudience = true,
+                RoleClaimType = ClaimTypes.Role,
                 ValidateIssuer = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,

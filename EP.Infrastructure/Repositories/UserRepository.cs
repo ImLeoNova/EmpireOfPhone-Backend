@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EP.Infrastructure.Repositories;
 
 public class UserRepository(
-    ExtraDbContext context,
+    AppIdentityContext context,
     UserManager<User> userManager
     ) : IUserRepository
 {

@@ -19,7 +19,7 @@ public class AuthService(
             throw new InvalidOperationException("Invalid Credentials");
         }
 
-        var token = jwtService.GenerateToken(userEntity);
+        var token = await jwtService.GenerateToken(userEntity);
         return token;
 
     }

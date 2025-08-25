@@ -13,6 +13,11 @@ public static class DbSeeder
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
+        if (!await roleManager.RoleExistsAsync("Member"))
+        {
+            await roleManager.CreateAsync(new IdentityRole("Member"));
+        }
+
         if (!await roleManager.RoleExistsAsync("Administrator"))
         {
             await roleManager.CreateAsync(new IdentityRole("Administrator"));
@@ -23,6 +28,8 @@ public static class DbSeeder
         {
             adminUser = new User
             {
+                FirstName = "Arian",
+                LastName = "Esmaeili",
                 UserName = "admin",
                 Email = "admin@test.com",
                 EmailConfirmed = true
@@ -32,6 +39,26 @@ public static class DbSeeder
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(adminUser, "Administrator");
+            }
+        }
+
+        var normalUser = await userManager.FindByNameAsync("testUser");
+
+        if (normalUser == null)
+        {
+            normalUser = new User
+            {
+                FirstName = "Arian",
+                LastName = "Esmaeili",
+                UserName = "test",
+                Email = "test@test.com",
+                EmailConfirmed = true
+            };
+
+            var result = await userManager.CreateAsync(normalUser, "Test1234");
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(normalUser, "Member");
             }
         }
     }

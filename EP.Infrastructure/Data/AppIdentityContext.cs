@@ -5,6 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EP.Infrastructure.Data;
 
-public class ExtraDbContext(DbContextOptions<ExtraDbContext> options)
+public class AppIdentityContext(DbContextOptions<AppIdentityContext> options)
     : IdentityDbContext<User, IdentityRole, string>(options)
 ;

@@ -4,5 +4,5 @@ namespace EP.Domain.Interfaces.Services;
 
 public interface IJwtService
 {
-    public string GenerateToken(User user);
+    public Task<string> GenerateToken(User user);
 }
